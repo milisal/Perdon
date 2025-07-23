@@ -13,6 +13,7 @@
       height: 100vh;
       margin: 0;
       background-color: #fce4ec;
+      overflow: hidden;
     }
 
     h1 {
@@ -38,12 +39,14 @@
     #yes {
       background-color: #81c784;
       color: white;
+      z-index: 1;
     }
 
     #no {
       background-color: #e57373;
       color: white;
       position: absolute;
+      z-index: 2;
     }
   </style>
 </head>
@@ -56,23 +59,23 @@
 
   <script>
     const noButton = document.getElementById("no");
-    const container = document.querySelector(".buttons");
+    const yesButton = document.getElementById("yes");
 
     noButton.addEventListener("mouseover", () => {
-      const containerWidth = container.offsetWidth;
-      const containerHeight = container.offsetHeight;
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
       const btnWidth = noButton.offsetWidth;
       const btnHeight = noButton.offsetHeight;
 
-      const randX = Math.random() * (containerWidth - btnWidth);
-      const randY = Math.random() * (containerHeight - btnHeight);
+      const randX = Math.random() * (windowWidth - btnWidth);
+      const randY = Math.random() * (windowHeight - btnHeight);
 
       noButton.style.left = `${randX}px`;
       noButton.style.top = `${randY}px`;
     });
 
-    document.getElementById("yes").addEventListener("click", () => {
-      alert("¡Sabía que dirías que sí! 💖");
+    yesButton.addEventListener("click", () => {
+      alert("Te amo ❤️");
     });
   </script>
 </body>
