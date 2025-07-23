@@ -128,10 +128,11 @@
     let noClickCount = 0;
 
     yesButton.addEventListener("click", () => {
-      title.textContent = "¡Te amo! ❤️";
-      mainImage.src = "mono_feliz.jpeg";
-      startHeartRain();
-    });
+  title.textContent = "¡Te amo! ❤️";
+  mainImage.src = "mono_feliz.jpeg";
+  document.querySelector(".buttons").style.display = "none";
+  startHeartRain();
+});
 
     noButton.addEventListener("mouseenter", () => {
       noButton.style.position = "fixed";
