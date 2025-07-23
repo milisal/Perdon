@@ -80,14 +80,14 @@
     /* Corazoncitos flotantes */
     .heart {
       position: fixed;
-      width: 30px;
-      height: 30px;
+      width: 50px;  /* Más grandes */
+      height: 50px;
       background-color: red;
       clip-path: polygon(
         50% 0%, 61% 8%, 68% 20%, 68% 32%, 50% 53%, 32% 32%, 32% 20%, 39% 8%
       );
       opacity: 0.9;
-      animation: floatUp 2s ease-out forwards;
+      animation: floatUp 2.5s ease-out forwards;
       pointer-events: none;
       z-index: 9999;
     }
@@ -98,7 +98,7 @@
         opacity: 0.9;
       }
       100% {
-        transform: translateY(-150px) scale(1.5);
+        transform: translateY(-180px) scale(1.5);
         opacity: 0;
       }
     }
@@ -107,7 +107,8 @@
 <body>
   <h1>¿Me perdonás?</h1>
   <div class="image-container">
-    <img id="mainImage" src="_.jpeg" alt="monito triste" />
+    <!-- Cambié nombres de imagenes sin espacios ni caracteres especiales -->
+    <img id="mainImage" src="mono_triste.jpeg" alt="monito triste" />
   </div>
 
   <div class="buttons">
@@ -127,50 +128,41 @@
 
     yesButton.addEventListener("click", () => {
       alert("Te amo ❤️");
-      mainImage.src = "_ (1).jpeg";
+      mainImage.src = "mono_feliz.jpeg"; // nueva imagen al presionar sí
       createHearts(10);
     });
 
     noButton.addEventListener("mouseenter", () => {
+      // Para que se mueva por toda la ventana, posición absoluta respecto a viewport
       noButton.style.position = "absolute";
 
       const maxX = window.innerWidth - noButton.offsetWidth;
       const maxY = window.innerHeight - noButton.offsetHeight;
 
-      const yesRect = yesButton.getBoundingClientRect();
-
-      let randX, randY;
-      let tries = 0;
-      do {
-        randX = Math.random() * maxX;
-        randY = Math.random() * maxY;
-        const distX = Math.abs(randX - yesRect.left);
-        const distY = Math.abs(randY - yesRect.top);
-        tries++;
-        if (tries > 100) break;
-      } while (distX < 150 && distY < 150);
+      const randX = Math.random() * maxX;
+      const randY = Math.random() * maxY;
 
       noButton.style.left = `${randX}px`;
       noButton.style.top = `${randY}px`;
     });
 
     noButton.addEventListener("mouseleave", () => {
-      noButton.style.position = "relative";
-      noButton.style.left = "";
-      noButton.style.top = "";
+      // Podés dejarlo en absolute para que siga donde quedó o si querés volver a relative:
+      // noButton.style.position = "relative";
+      // noButton.style.left = "";
+      // noButton.style.top = "";
     });
 
     noButton.addEventListener("click", () => {
       noClickCount++;
       if (noClickCount >= 3) {
         warning.style.display = "block";
-        // Opcional: bloquear botones para que no sigan molestando
-        noButton.disabled = true;
+        noButton.disabled = true;  // para que no moleste más
         yesButton.disabled = false;
       }
     });
 
-    // Función para crear corazones flotantes
+    // Crear corazones flotantes grandes
     function createHearts(num) {
       for(let i=0; i<num; i++) {
         const heart = document.createElement("div");
@@ -178,12 +170,11 @@
 
         // Posición inicial cerca del botón "Sí"
         const yesRect = yesButton.getBoundingClientRect();
-        heart.style.left = (yesRect.left + yesRect.width/2 - 15 + (Math.random()*30 -15)) + "px";
-        heart.style.top = (yesRect.top - 30 + (Math.random()*20)) + "px";
+        heart.style.left = (yesRect.left + yesRect.width / 2 - 25 + (Math.random() * 50 - 25)) + "px";
+        heart.style.top = (yesRect.top - 50 + (Math.random() * 30)) + "px";
 
         document.body.appendChild(heart);
 
-        // Remover después de la animación
         heart.addEventListener("animationend", () => {
           heart.remove();
         });
