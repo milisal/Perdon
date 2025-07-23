@@ -103,17 +103,32 @@
   </style>
 </head>
 <body>
-  <h1>¿Me perdonás?</h1>
-  <div class="image-container">
-    <img id="mainImage" src="mono_triste.jpeg" alt="monito triste" />
-  </div>
+  <h1 id="title">¿Me perdonás?</h1>
+  <div class="image-container">
+    <img id="mainImage" src="mono_triste.jpeg" alt="monito triste" />
+  </div>
 
-  <div class="buttons">
-    <button id="yes">Sí</button>
-    <button id="no">No</button>
-  </div>
+  <div class="buttons">
+    <button id="yes">Sí</button>
+    <button id="no">No</button>
+  </div>
 
-  <div id="warning">La página funciona mal, volve cuando quieras presionar "Sí"</div>
+  <div id="warning">La página funciona mal, vuelva cuando quiera presionar "Sí"</div>
+
+  <script>
+    const noButton = document.getElementById("no");
+    const yesButton = document.getElementById("yes");
+    const mainImage = document.getElementById("mainImage");
+    const warning = document.getElementById("warning");
+    const title = document.getElementById("title");
+
+    let noClickCount = 0;
+
+    yesButton.addEventListener("click", () => {
+      title.textContent = "¡Te amo! ❤️";
+      mainImage.src = "mono_feliz.jpeg";
+      createHearts(10);
+    });
 
   <script>
     const noButton = document.getElementById("no");
@@ -124,7 +139,7 @@
     let noClickCount = 0;
 
     yesButton.addEventListener("click", () => {
-      alert("Te amo ❤️");
+      document.getElementById("title").textContent = "¡Te amo! ❤️";
       mainImage.src = "mono_feliz.jpeg";
       createHearts(10);
     });
