@@ -132,15 +132,14 @@
       title.textContent = "¡Te amo! ❤️";
       mainImage.src = "mono_feliz.jpeg";
       document.querySelector(".buttons").style.display = "none";
-      startHeartRain();
     });
 
     noButton.addEventListener("mouseenter", () => {
-      noButton.style.position = "fixed";
       const maxX = window.innerWidth - noButton.offsetWidth;
       const maxY = window.innerHeight - noButton.offsetHeight;
       const randX = Math.random() * maxX;
       const randY = Math.random() * maxY;
+      noButton.style.position = "fixed"; 
       noButton.style.left = `${randX}px`;
       noButton.style.top = `${randY}px`;
     });
@@ -152,7 +151,8 @@
         noButton.disabled = true;
         yesButton.disabled = false;
       }
-    });
+    });   
+	});
 
     function startHeartRain() {
       const interval = setInterval(() => {
