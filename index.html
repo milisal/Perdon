@@ -58,7 +58,6 @@
       color: white;
     }
 
-    /* Cartel gigante rojo */
     #warning {
       position: fixed;
       top: 50%;
@@ -77,10 +76,9 @@
       box-shadow: 0 0 20px rgba(0,0,0,0.5);
     }
 
-    /* Corazoncitos flotantes */
     .heart {
       position: fixed;
-      width: 50px;  /* Más grandes */
+      width: 50px; 
       height: 50px;
       background-color: red;
       clip-path: polygon(
@@ -107,7 +105,6 @@
 <body>
   <h1>¿Me perdonás?</h1>
   <div class="image-container">
-    <!-- Cambié nombres de imagenes sin espacios ni caracteres especiales -->
     <img id="mainImage" src="mono_triste.jpeg" alt="monito triste" />
   </div>
 
@@ -116,7 +113,7 @@
     <button id="no">No</button>
   </div>
 
-  <div id="warning">La página funciona mal, vuelva cuando quiera presionar "Sí"</div>
+  <div id="warning">La página funciona mal, volve cuando quieras presionar "Sí"</div>
 
   <script>
     const noButton = document.getElementById("no");
@@ -128,12 +125,11 @@
 
     yesButton.addEventListener("click", () => {
       alert("Te amo ❤️");
-      mainImage.src = "mono_feliz.jpeg"; // nueva imagen al presionar sí
+      mainImage.src = "mono_feliz.jpeg";
       createHearts(10);
     });
 
     noButton.addEventListener("mouseenter", () => {
-      // Para que se mueva por toda la ventana, posición absoluta respecto a viewport
       noButton.style.position = "absolute";
 
       const maxX = window.innerWidth - noButton.offsetWidth;
@@ -147,28 +143,22 @@
     });
 
     noButton.addEventListener("mouseleave", () => {
-      // Podés dejarlo en absolute para que siga donde quedó o si querés volver a relative:
-      // noButton.style.position = "relative";
-      // noButton.style.left = "";
-      // noButton.style.top = "";
     });
 
     noButton.addEventListener("click", () => {
       noClickCount++;
       if (noClickCount >= 3) {
         warning.style.display = "block";
-        noButton.disabled = true;  // para que no moleste más
+        noButton.disabled = true;
         yesButton.disabled = false;
       }
     });
 
-    // Crear corazones flotantes grandes
     function createHearts(num) {
       for(let i=0; i<num; i++) {
         const heart = document.createElement("div");
         heart.classList.add("heart");
 
-        // Posición inicial cerca del botón "Sí"
         const yesRect = yesButton.getBoundingClientRect();
         heart.style.left = (yesRect.left + yesRect.width / 2 - 25 + (Math.random() * 50 - 25)) + "px";
         heart.style.top = (yesRect.top - 50 + (Math.random() * 30)) + "px";
