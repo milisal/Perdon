@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¿Me perdonas?</title>
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #fce4ec;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #d81b60;
+    }
+
+    .buttons {
+      margin-top: 30px;
+      position: relative;
+    }
+
+    button {
+      font-size: 1.2em;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #yes {
+      background-color: #81c784;
+      color: white;
+    }
+
+    #no {
+      background-color: #e57373;
+      color: white;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <h1>¿Me perdonas?</h1>
+  <div class="buttons">
+    <button id="yes">Sí</button>
+    <button id="no">No</button>
+  </div>
+
+  <script>
+    const noButton = document.getElementById("no");
+    const container = document.querySelector(".buttons");
+
+    noButton.addEventListener("mouseover", () => {
+      const containerWidth = container.offsetWidth;
+      const containerHeight = container.offsetHeight;
+      const btnWidth = noButton.offsetWidth;
+      const btnHeight = noButton.offsetHeight;
+
+      const randX = Math.random() * (containerWidth - btnWidth);
+      const randY = Math.random() * (containerHeight - btnHeight);
+
+      noButton.style.left = `${randX}px`;
+      noButton.style.top = `${randY}px`;
+    });
+
+    document.getElementById("yes").addEventListener("click", () => {
+      alert("¡Sabía que dirías que sí! 💖");
+    });
+  </script>
+</body>
+</html>
