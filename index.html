@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>¿Me perdonas?</title>
+  <title>¿Me perdonás?</title>
   <style>
     body {
       font-family: "Arial", sans-serif;
@@ -14,16 +14,26 @@
       margin: 0;
       background-color: #fce4ec;
       overflow: hidden;
+      text-align: center;
     }
 
     h1 {
       font-size: 2.5em;
       color: #d81b60;
+      margin-bottom: 10px;
+    }
+
+    .image-container img {
+      width: 250px;
+      border-radius: 20px;
+      margin-top: 10px;
     }
 
     .buttons {
       margin-top: 30px;
       position: relative;
+      height: 100px;
+      width: 100%;
     }
 
     button {
@@ -51,7 +61,11 @@
   </style>
 </head>
 <body>
-  <h1>¿Me perdonas?</h1>
+  <h1>¿Me perdonás?</h1>
+  <div class="image-container">
+    <img id="mainImage" src="monito_triste.jpeg" alt="monito triste">
+  </div>
+
   <div class="buttons">
     <button id="yes">Sí</button>
     <button id="no">No</button>
@@ -60,6 +74,7 @@
   <script>
     const noButton = document.getElementById("no");
     const yesButton = document.getElementById("yes");
+    const mainImage = document.getElementById("mainImage");
 
     noButton.addEventListener("mouseover", () => {
       const windowWidth = window.innerWidth;
@@ -76,6 +91,7 @@
 
     yesButton.addEventListener("click", () => {
       alert("Te amo ❤️");
+      mainImage.src = "monitos_beso.jpeg";
     });
   </script>
 </body>
