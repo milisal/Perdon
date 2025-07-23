@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>¿Me perdonás?</title>
   <style>
     body {
@@ -15,6 +15,7 @@
       background-color: #fce4ec;
       overflow: hidden;
       text-align: center;
+      position: relative;
     }
 
     h1 {
@@ -31,39 +32,82 @@
 
     .buttons {
       margin-top: 30px;
+      display: flex;
+      gap: 20px;
       position: relative;
-      height: 100px;
-      width: 100%;
+      z-index: 1;
     }
 
     button {
       font-size: 1.2em;
       padding: 10px 20px;
-      margin: 10px;
       border: none;
       border-radius: 10px;
       cursor: pointer;
       transition: all 0.3s ease;
+      position: relative;
     }
 
     #yes {
       background-color: #81c784;
       color: white;
-      z-index: 1;
     }
 
     #no {
       background-color: #e57373;
       color: white;
-      position: absolute;
-      z-index: 2;
+    }
+
+    /* Cartel gigante rojo */
+    #warning {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #d32f2f;
+      color: white;
+      font-size: 3em;
+      font-weight: bold;
+      padding: 30px;
+      border-radius: 15px;
+      z-index: 9999;
+      text-align: center;
+      display: none;
+      max-width: 90%;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    /* Corazoncitos flotantes */
+    .heart {
+      position: fixed;
+      width: 30px;
+      height: 30px;
+      background-color: red;
+      clip-path: polygon(
+        50% 0%, 61% 8%, 68% 20%, 68% 32%, 50% 53%, 32% 32%, 32% 20%, 39% 8%
+      );
+      opacity: 0.9;
+      animation: floatUp 2s ease-out forwards;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(-150px) scale(1.5);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
   <h1>¿Me perdonás?</h1>
   <div class="image-container">
-    <img id="mainImage" src="_.jpeg" alt="monito triste">
+    <img id="mainImage" src="_.jpeg" alt="monito triste" />
   </div>
 
   <div class="buttons">
@@ -71,28 +115,80 @@
     <button id="no">No</button>
   </div>
 
+  <div id="warning">La página funciona mal, vuelva cuando quiera presionar "Sí"</div>
+
   <script>
     const noButton = document.getElementById("no");
     const yesButton = document.getElementById("yes");
     const mainImage = document.getElementById("mainImage");
+    const warning = document.getElementById("warning");
 
-    noButton.addEventListener("mouseover", () => {
-      const windowWidth = window.innerWidth;
-      const windowHeight = window.innerHeight;
-      const btnWidth = noButton.offsetWidth;
-      const btnHeight = noButton.offsetHeight;
+    let noClickCount = 0;
 
-      const randX = Math.random() * (windowWidth - btnWidth);
-      const randY = Math.random() * (windowHeight - btnHeight);
+    yesButton.addEventListener("click", () => {
+      alert("Te amo ❤️");
+      mainImage.src = "_ (1).jpeg";
+      createHearts(10);
+    });
+
+    noButton.addEventListener("mouseenter", () => {
+      noButton.style.position = "absolute";
+
+      const maxX = window.innerWidth - noButton.offsetWidth;
+      const maxY = window.innerHeight - noButton.offsetHeight;
+
+      const yesRect = yesButton.getBoundingClientRect();
+
+      let randX, randY;
+      let tries = 0;
+      do {
+        randX = Math.random() * maxX;
+        randY = Math.random() * maxY;
+        const distX = Math.abs(randX - yesRect.left);
+        const distY = Math.abs(randY - yesRect.top);
+        tries++;
+        if (tries > 100) break;
+      } while (distX < 150 && distY < 150);
 
       noButton.style.left = `${randX}px`;
       noButton.style.top = `${randY}px`;
     });
 
-    yesButton.addEventListener("click", () => {
-      alert("Te amo ❤️");
-      mainImage.src = "_ (1).jpeg";
+    noButton.addEventListener("mouseleave", () => {
+      noButton.style.position = "relative";
+      noButton.style.left = "";
+      noButton.style.top = "";
     });
+
+    noButton.addEventListener("click", () => {
+      noClickCount++;
+      if (noClickCount >= 3) {
+        warning.style.display = "block";
+        // Opcional: bloquear botones para que no sigan molestando
+        noButton.disabled = true;
+        yesButton.disabled = false;
+      }
+    });
+
+    // Función para crear corazones flotantes
+    function createHearts(num) {
+      for(let i=0; i<num; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+
+        // Posición inicial cerca del botón "Sí"
+        const yesRect = yesButton.getBoundingClientRect();
+        heart.style.left = (yesRect.left + yesRect.width/2 - 15 + (Math.random()*30 -15)) + "px";
+        heart.style.top = (yesRect.top - 30 + (Math.random()*20)) + "px";
+
+        document.body.appendChild(heart);
+
+        // Remover después de la animación
+        heart.addEventListener("animationend", () => {
+          heart.remove();
+        });
+      }
+    }
   </script>
 </body>
 </html>
