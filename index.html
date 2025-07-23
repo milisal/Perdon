@@ -76,20 +76,23 @@
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     }
 
-    .heart {
-      position: fixed;
-      width: 50px;
-      height: 50px;
-      background-color: red;
-      clip-path: polygon(
-        50% 0%, 61% 8%, 68% 20%, 68% 32%, 50% 53%, 32% 32%, 32% 20%, 39% 8%
-      );
-      opacity: 0.9;
-      animation: floatUp 2.5s ease-out forwards;
-      pointer-events: none;
-      z-index: 9999;
-    }
+    	.heart {
+		  position: fixed;
+		  width: 50px;
+ 		  height: 50px;
+		  background-color: transparent;
+		  animation: floatUp 2.5s ease-out forwards;
+ 		  pointer-events: none;
+		  z-index: 9999;
+		}
 
+			.heart::before {
+  		content: "❤️";
+		  font-size: 40px;
+		  display: block;
+ 		 text-align: center;
+}
+    
     @keyframes floatUp {
       0% {
         transform: translateY(0) scale(1);
@@ -102,8 +105,7 @@
     }
   </style>
 </head>
-<body>
-  <h1 id="title">¿Me perdonás?</h1>
+<body>  <h1 id="title">¿Me perdonás?</h1>
 
   <div class="image-container">
     <img id="mainImage" src="mono_triste.jpeg" alt="monito triste" />
@@ -132,7 +134,7 @@
     });
 
     noButton.addEventListener("mouseenter", () => {
-      noButton.style.position = "absolute";
+      noButton.style.position = "fixed";
       const maxX = window.innerWidth - noButton.offsetWidth;
       const maxY = window.innerHeight - noButton.offsetHeight;
       const randX = Math.random() * maxX;
