@@ -1,181 +1,182 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>¿Me perdonás?</title>
-  <style>
-    body {
-      font-family: "Arial", sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #fce4ec;
-      overflow: hidden;
-      text-align: center;
-      position: relative;
-    }
+  <meta charset="UTF-8" />
+  <title>¿Me perdonás?</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-    h1 {
-      font-size: 2.5em;
-      color: #d81b60;
-      margin-bottom: 10px;
-    }
+    body {
+      font-family: "Arial", sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fce4ec;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
 
-    .image-container img {
-      width: 250px;
-      border-radius: 20px;
-      margin-top: 10px;
-    }
+    h1 {
+      font-size: 3.5em;
+      color: #d81b60;
+      margin-bottom: 30px;
+    }
 
-    .buttons {
-      margin-top: 30px;
-      display: flex;
-      gap: 20px;
-      position: relative;
-      z-index: 1;
-    }
+    .image-container img {
+      width: 400px;
+      border-radius: 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
 
-    button {
-      font-size: 1.2em;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-    }
+    .buttons {
+      margin-top: 40px;
+      display: flex;
+      gap: 30px;
+    }
 
-    #yes {
-      background-color: #81c784;
-      color: white;
-    }
+    button {
+      font-size: 1.5em;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
 
-    #no {
-      background-color: #e57373;
-      color: white;
-    }
+    #yes {
+      background-color: #81c784;
+      color: white;
+    }
 
-    #warning {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #d32f2f;
-      color: white;
-      font-size: 2em;
-      font-weight: bold;
-      padding: 20px 30px;
-      border-radius: 15px;
-      z-index: 9999;
-      text-align: center;
-      display: none;
-      max-width: 90%;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    }
+    #no {
+      background-color: #e57373;
+      color: white;
+    }
 
-    	.heart {
-		  position: fixed;
-		  width: 50px;
- 		  height: 50px;
-		  background-color: transparent;
-		  animation: floatUp 2.5s ease-out forwards;
- 		  pointer-events: none;
-		  z-index: 9999;
-		}
+    #warning {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #d32f2f;
+      color: white;
+      font-size: 2.5em;
+      font-weight: bold;
+      padding: 30px 40px;
+      border-radius: 20px;
+      z-index: 9999;
+      text-align: center;
+      display: none;
+      max-width: 90%;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
 
-			.heart::before {
-  		content: "❤️";
-		  font-size: 40px;
-		  display: block;
- 		 text-align: center;
-}
-    
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 0.9;
-      }
-      100% {
-        transform: translateY(-200px) scale(1.5);
-        opacity: 0;
-      }
-    }
-  </style>
+    .heart {
+      position: fixed;
+      width: 50px;
+      height: 50px;
+      background-color: transparent;
+      animation: floatUp 2.5s ease-out forwards;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .heart::before {
+      content: "❤️";
+      font-size: 40px;
+      display: block;
+      text-align: center;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(-200px) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
-<body>  <h1 id="title">¿Me perdonás?</h1>
+<body>
+  <h1 id="title">¿Me perdonás?</h1>
 
-  <div class="image-container">
-    <img id="mainImage" src="mono_triste.jpeg" alt="monito triste" />
-  </div>
+  <div class="image-container">
+    <img id="mainImage" src="mono_triste.jpeg" alt="monito triste" />
+  </div>
 
-  <div class="buttons">
-    <button id="yes">Sí</button>
-    <button id="no">No</button>
-  </div>
+  <div class="buttons">
+    <button id="yes">Sí</button>
+    <button id="no">No</button>
+  </div>
 
-  <div id="warning">La página funciona mal, volvé cuando quieras presionar "Sí"</div>
+  <div id="warning">La página funciona mal, volvé cuando quieras presionar "Sí"</div>
 
-  <script>
-    const noButton = document.getElementById("no");
-    const yesButton = document.getElementById("yes");
-    const mainImage = document.getElementById("mainImage");
-    const warning = document.getElementById("warning");
-    const title = document.getElementById("title");
+  <script>
+    const noButton = document.getElementById("no");
+    const yesButton = document.getElementById("yes");
+    const mainImage = document.getElementById("mainImage");
+    const warning = document.getElementById("warning");
+    const title = document.getElementById("title");
 
-    let noClickCount = 0;
+    let noClickCount = 0;
 
-    yesButton.addEventListener("click", () => {
-  title.textContent = "¡Te amo! ❤️";
-  mainImage.src = "mono_feliz.jpeg";
-  document.querySelector(".buttons").style.display = "none";
-  startHeartRain();
-});
+    yesButton.addEventListener("click", () => {
+      title.textContent = "¡Te amo! ❤️";
+      mainImage.src = "mono_feliz.jpeg";
+      document.querySelector(".buttons").style.display = "none";
+      startHeartRain();
+    });
 
-    noButton.addEventListener("mouseenter", () => {
-      noButton.style.position = "fixed";
-      const maxX = window.innerWidth - noButton.offsetWidth;
-      const maxY = window.innerHeight - noButton.offsetHeight;
-      const randX = Math.random() * maxX;
-      const randY = Math.random() * maxY;
-      noButton.style.left = `${randX}px`;
-      noButton.style.top = `${randY}px`;
-    });
+    noButton.addEventListener("mouseenter", () => {
+      noButton.style.position = "fixed";
+      const maxX = window.innerWidth - noButton.offsetWidth;
+      const maxY = window.innerHeight - noButton.offsetHeight;
+      const randX = Math.random() * maxX;
+      const randY = Math.random() * maxY;
+      noButton.style.left = `${randX}px`;
+      noButton.style.top = `${randY}px`;
+    });
 
-    noButton.addEventListener("click", () => {
-      noClickCount++;
-      if (noClickCount >= 3) {
-        warning.style.display = "block";
-        noButton.disabled = true;
-        yesButton.disabled = false;
-      }
-    });
+    noButton.addEventListener("click", () => {
+      noClickCount++;
+      if (noClickCount >= 3) {
+        warning.style.display = "block";
+        noButton.disabled = true;
+        yesButton.disabled = false;
+      }
+    });
 
-    function startHeartRain() {
-      const interval = setInterval(() => {
-        createHeart();
-      }, 200);
+    function startHeartRain() {
+      const interval = setInterval(() => {
+        createHeart();
+      }, 200);
 
-      setTimeout(() => {
-        clearInterval(interval);
-      }, 10000);
-    }
+      setTimeout(() => {
+        clearInterval(interval);
+      }, 10000);
+    }
 
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = `${Math.random() * window.innerWidth}px`;
+      heart.style.top = `${window.innerHeight - 50}px`;
+      document.body.appendChild(heart);
 
-      heart.style.left = `${Math.random() * window.innerWidth}px`;
-      heart.style.top = `${window.innerHeight - 50}px`;
-
-      document.body.appendChild(heart);
-
-      heart.addEventListener("animationend", () => {
-        heart.remove();
-      });
-    }
-  </script>
+      heart.addEventListener("animationend", () => {
+        heart.remove();
+      });
+    }
+  </script>
 </body>
 </html>
